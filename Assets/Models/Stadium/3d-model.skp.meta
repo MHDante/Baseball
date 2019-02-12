@@ -1,0 +1,715 @@
+fileFormatVersion: 2
+guid: 45746f59560ab5a4cafcdf56959b4521
+SketchUpImporter:
+  generateBackFace: 0
+  mergeCoplanarFaces: 1
+  selectedNodes: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f000000100000001100000012000000130000001400000015000000160000001700000018000000190000001a0000001b0000001c0000001d0000001e0000001f000000200000002100000022000000230000002400000025000000260000002700000028000000290000002a0000002b0000002c0000002d0000002e0000002f000000300000003100000032000000330000003400000035000000360000003700000038000000390000003a0000003b0000003c0000003d0000003e0000003f000000400000004100000042000000430000004400000045000000460000004700000048000000490000004a0000004b0000004c0000004d0000004e0000004f000000500000005100000052000000530000005400000055000000560000005700000058000000590000005a0000005b0000005c0000005d0000005e0000005f000000600000006100000062000000630000006400000065000000660000006700000068000000690000006a0000006b0000006c0000006d0000006e0000006f000000700000007100000072000000730000007400000075000000760000007700000078000000790000007a0000007b0000007c0000007d0000007e0000007f000000800000008100000082000000830000008400000085000000860000008700000088000000890000008a0000008b0000008c0000008d0000008e0000008f000000900000009100000092000000930000009400000095000000960000009700000098000000990000009a000000
+  assetHash:
+    serializedVersion: 2
+    Hash: e740c642610b88b9ad12e16c29c862c9
+  longitude: 120.358759394334
+  latitude: 22.654329031348
+  northCorrection: -0
+  fileUnit: 0
+  sketchUpImportData:
+    defaultCamera:
+      position: {x: 159.47217, y: 64.97278, z: -199.06212}
+      lookAt: {x: 18.139156, y: 15.455462, z: 12.920321}
+      up: {x: -0.10583448, y: 0.9816318, z: 0.15873893}
+      fov: 35
+      aspectRatio: 0
+      orthoSize: 1
+      isPerspective: 1
+    scenes: []
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Component
+    100004: Component 1
+    100006: Component 10
+    100008: Component 11
+    100010: Component 12
+    100012: Component 2
+    100014: Component 3
+    100016: Component 4
+    100018: Component 5
+    100020: Component 6
+    100022: Component 7
+    100024: Component 8
+    100026: Component 9
+    100028: Component#1
+    100030: Component#1 1
+    100032: Component#1 10
+    100034: Component#1 11
+    100036: Component#1 12
+    100038: Component#1 13
+    100040: Component#1 14
+    100042: Component#1 15
+    100044: Component#1 16
+    100046: Component#1 17
+    100048: Component#1 18
+    100050: Component#1 19
+    100052: Component#1 2
+    100054: Component#1 20
+    100056: Component#1 21
+    100058: Component#1 22
+    100060: Component#1 23
+    100062: Component#1 24
+    100064: Component#1 3
+    100066: Component#1 4
+    100068: Component#1 5
+    100070: Component#1 6
+    100072: Component#1 7
+    100074: Component#1 8
+    100076: Component#1 9
+    100078: Component#2
+    100080: Component#2 1
+    100082: Component#2 10
+    100084: Component#2 11
+    100086: Component#2 12
+    100088: Component#2 2
+    100090: Component#2 3
+    100092: Component#2 4
+    100094: Component#2 5
+    100096: Component#2 6
+    100098: Component#2 7
+    100100: Component#2 8
+    100102: Component#2 9
+    100104: Component#3
+    100106: Component#3 1
+    100108: Component#3 10
+    100110: Component#3 11
+    100112: Component#3 12
+    100114: Component#3 13
+    100116: Component#3 14
+    100118: Component#3 15
+    100120: Component#3 16
+    100122: Component#3 17
+    100124: Component#3 18
+    100126: Component#3 19
+    100128: Component#3 2
+    100130: Component#3 20
+    100132: Component#3 21
+    100134: Component#3 22
+    100136: Component#3 23
+    100138: Component#3 24
+    100140: Component#3 3
+    100142: Component#3 4
+    100144: Component#3 5
+    100146: Component#3 6
+    100148: Component#3 7
+    100150: Component#3 8
+    100152: Component#3 9
+    100154: skp5DFB
+    400000: //RootNode
+    400002: Component
+    400004: Component 1
+    400006: Component 10
+    400008: Component 11
+    400010: Component 12
+    400012: Component 2
+    400014: Component 3
+    400016: Component 4
+    400018: Component 5
+    400020: Component 6
+    400022: Component 7
+    400024: Component 8
+    400026: Component 9
+    400028: Component#1
+    400030: Component#1 1
+    400032: Component#1 10
+    400034: Component#1 11
+    400036: Component#1 12
+    400038: Component#1 13
+    400040: Component#1 14
+    400042: Component#1 15
+    400044: Component#1 16
+    400046: Component#1 17
+    400048: Component#1 18
+    400050: Component#1 19
+    400052: Component#1 2
+    400054: Component#1 20
+    400056: Component#1 21
+    400058: Component#1 22
+    400060: Component#1 23
+    400062: Component#1 24
+    400064: Component#1 3
+    400066: Component#1 4
+    400068: Component#1 5
+    400070: Component#1 6
+    400072: Component#1 7
+    400074: Component#1 8
+    400076: Component#1 9
+    400078: Component#2
+    400080: Component#2 1
+    400082: Component#2 10
+    400084: Component#2 11
+    400086: Component#2 12
+    400088: Component#2 2
+    400090: Component#2 3
+    400092: Component#2 4
+    400094: Component#2 5
+    400096: Component#2 6
+    400098: Component#2 7
+    400100: Component#2 8
+    400102: Component#2 9
+    400104: Component#3
+    400106: Component#3 1
+    400108: Component#3 10
+    400110: Component#3 11
+    400112: Component#3 12
+    400114: Component#3 13
+    400116: Component#3 14
+    400118: Component#3 15
+    400120: Component#3 16
+    400122: Component#3 17
+    400124: Component#3 18
+    400126: Component#3 19
+    400128: Component#3 2
+    400130: Component#3 20
+    400132: Component#3 21
+    400134: Component#3 22
+    400136: Component#3 23
+    400138: Component#3 24
+    400140: Component#3 3
+    400142: Component#3 4
+    400144: Component#3 5
+    400146: Component#3 6
+    400148: Component#3 7
+    400150: Component#3 8
+    400152: Component#3 9
+    400154: skp5DFB
+    2100000: _auto_
+    2100002: _auto_1
+    2100004: _auto_3
+    2100006: _auto_6
+    2100008: _auto_4
+    2100010: _auto_10
+    2100012: _auto_8
+    2100014: _auto_9
+    2100016: _auto_11
+    2100018: _auto_12
+    2100020: _auto_16
+    2100022: _auto_17
+    2100024: _auto_19
+    2100026: _auto_13
+    2100028: _auto_21
+    2100030: _auto_24
+    2100032: _auto_25
+    2100034: _auto_26
+    2100036: _auto_27
+    2100038: _auto_28
+    2100040: _auto_29
+    2100042: _auto_31
+    2300000: Component
+    2300002: Component 1
+    2300004: Component 10
+    2300006: Component 11
+    2300008: Component 12
+    2300010: Component 2
+    2300012: Component 3
+    2300014: Component 4
+    2300016: Component 5
+    2300018: Component 6
+    2300020: Component 7
+    2300022: Component 8
+    2300024: Component 9
+    2300026: Component#1
+    2300028: Component#1 1
+    2300030: Component#1 10
+    2300032: Component#1 11
+    2300034: Component#1 12
+    2300036: Component#1 13
+    2300038: Component#1 14
+    2300040: Component#1 15
+    2300042: Component#1 16
+    2300044: Component#1 17
+    2300046: Component#1 18
+    2300048: Component#1 19
+    2300050: Component#1 2
+    2300052: Component#1 20
+    2300054: Component#1 21
+    2300056: Component#1 22
+    2300058: Component#1 23
+    2300060: Component#1 24
+    2300062: Component#1 3
+    2300064: Component#1 4
+    2300066: Component#1 5
+    2300068: Component#1 6
+    2300070: Component#1 7
+    2300072: Component#1 8
+    2300074: Component#1 9
+    2300076: Component#2
+    2300078: Component#2 1
+    2300080: Component#2 10
+    2300082: Component#2 11
+    2300084: Component#2 12
+    2300086: Component#2 2
+    2300088: Component#2 3
+    2300090: Component#2 4
+    2300092: Component#2 5
+    2300094: Component#2 6
+    2300096: Component#2 7
+    2300098: Component#2 8
+    2300100: Component#2 9
+    2300102: Component#3
+    2300104: Component#3 1
+    2300106: Component#3 10
+    2300108: Component#3 11
+    2300110: Component#3 12
+    2300112: Component#3 13
+    2300114: Component#3 14
+    2300116: Component#3 15
+    2300118: Component#3 16
+    2300120: Component#3 17
+    2300122: Component#3 18
+    2300124: Component#3 19
+    2300126: Component#3 2
+    2300128: Component#3 20
+    2300130: Component#3 21
+    2300132: Component#3 22
+    2300134: Component#3 23
+    2300136: Component#3 24
+    2300138: Component#3 3
+    2300140: Component#3 4
+    2300142: Component#3 5
+    2300144: Component#3 6
+    2300146: Component#3 7
+    2300148: Component#3 8
+    2300150: Component#3 9
+    2300152: skp5DFB
+    3300000: Component
+    3300002: Component 1
+    3300004: Component 10
+    3300006: Component 11
+    3300008: Component 12
+    3300010: Component 2
+    3300012: Component 3
+    3300014: Component 4
+    3300016: Component 5
+    3300018: Component 6
+    3300020: Component 7
+    3300022: Component 8
+    3300024: Component 9
+    3300026: Component#1
+    3300028: Component#1 1
+    3300030: Component#1 10
+    3300032: Component#1 11
+    3300034: Component#1 12
+    3300036: Component#1 13
+    3300038: Component#1 14
+    3300040: Component#1 15
+    3300042: Component#1 16
+    3300044: Component#1 17
+    3300046: Component#1 18
+    3300048: Component#1 19
+    3300050: Component#1 2
+    3300052: Component#1 20
+    3300054: Component#1 21
+    3300056: Component#1 22
+    3300058: Component#1 23
+    3300060: Component#1 24
+    3300062: Component#1 3
+    3300064: Component#1 4
+    3300066: Component#1 5
+    3300068: Component#1 6
+    3300070: Component#1 7
+    3300072: Component#1 8
+    3300074: Component#1 9
+    3300076: Component#2
+    3300078: Component#2 1
+    3300080: Component#2 10
+    3300082: Component#2 11
+    3300084: Component#2 12
+    3300086: Component#2 2
+    3300088: Component#2 3
+    3300090: Component#2 4
+    3300092: Component#2 5
+    3300094: Component#2 6
+    3300096: Component#2 7
+    3300098: Component#2 8
+    3300100: Component#2 9
+    3300102: Component#3
+    3300104: Component#3 1
+    3300106: Component#3 10
+    3300108: Component#3 11
+    3300110: Component#3 12
+    3300112: Component#3 13
+    3300114: Component#3 14
+    3300116: Component#3 15
+    3300118: Component#3 16
+    3300120: Component#3 17
+    3300122: Component#3 18
+    3300124: Component#3 19
+    3300126: Component#3 2
+    3300128: Component#3 20
+    3300130: Component#3 21
+    3300132: Component#3 22
+    3300134: Component#3 23
+    3300136: Component#3 24
+    3300138: Component#3 3
+    3300140: Component#3 4
+    3300142: Component#3 5
+    3300144: Component#3 6
+    3300146: Component#3 7
+    3300148: Component#3 8
+    3300150: Component#3 9
+    3300152: skp5DFB
+    4300000: Mesh skp5DFB
+    4300002: Mesh Component
+    4300004: Mesh Component#1
+    4300006: Mesh Component#2
+    4300008: Mesh Component#3
+    6400000: Component
+    6400002: Component 1
+    6400004: Component 10
+    6400006: Component 11
+    6400008: Component 12
+    6400010: Component 2
+    6400012: Component 3
+    6400014: Component 4
+    6400016: Component 5
+    6400018: Component 6
+    6400020: Component 7
+    6400022: Component 8
+    6400024: Component 9
+    6400026: Component#1
+    6400028: Component#1 1
+    6400030: Component#1 10
+    6400032: Component#1 11
+    6400034: Component#1 12
+    6400036: Component#1 13
+    6400038: Component#1 14
+    6400040: Component#1 15
+    6400042: Component#1 16
+    6400044: Component#1 17
+    6400046: Component#1 18
+    6400048: Component#1 19
+    6400050: Component#1 2
+    6400052: Component#1 20
+    6400054: Component#1 21
+    6400056: Component#1 22
+    6400058: Component#1 23
+    6400060: Component#1 24
+    6400062: Component#1 3
+    6400064: Component#1 4
+    6400066: Component#1 5
+    6400068: Component#1 6
+    6400070: Component#1 7
+    6400072: Component#1 8
+    6400074: Component#1 9
+    6400076: Component#2
+    6400078: Component#2 1
+    6400080: Component#2 10
+    6400082: Component#2 11
+    6400084: Component#2 12
+    6400086: Component#2 2
+    6400088: Component#2 3
+    6400090: Component#2 4
+    6400092: Component#2 5
+    6400094: Component#2 6
+    6400096: Component#2 7
+    6400098: Component#2 8
+    6400100: Component#2 9
+    6400102: Component#3
+    6400104: Component#3 1
+    6400106: Component#3 10
+    6400108: Component#3 11
+    6400110: Component#3 12
+    6400112: Component#3 13
+    6400114: Component#3 14
+    6400116: Component#3 15
+    6400118: Component#3 16
+    6400120: Component#3 17
+    6400122: Component#3 18
+    6400124: Component#3 19
+    6400126: Component#3 2
+    6400128: Component#3 20
+    6400130: Component#3 21
+    6400132: Component#3 22
+    6400134: Component#3 23
+    6400136: Component#3 24
+    6400138: Component#3 3
+    6400140: Component#3 4
+    6400142: Component#3 5
+    6400144: Component#3 6
+    6400146: Component#3 7
+    6400148: Component#3 8
+    6400150: Component#3 9
+    6400152: skp5DFB
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: _auto_
+    second: {fileID: 2100000, guid: af0c01d86cf3eb54f921582d48207d39, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: _auto_1
+    second: {fileID: 2100000, guid: 018a3c21a7645d740ac8046cc54636e6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: _auto_10
+    second: {fileID: 2100000, guid: 69278dd0dc18f764b87bea3ed7612b64, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: _auto_11
+    second: {fileID: 2100000, guid: 61c4179a03ecada4b974a206af846b62, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: _auto_12
+    second: {fileID: 2100000, guid: 3cf97631b1902934790c84020f63ac82, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: _auto_13
+    second: {fileID: 2100000, guid: 003eec3fa6da8cf4dab24559160a4c06, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: _auto_16
+    second: {fileID: 2100000, guid: e150f6ace9a860c458b37e4944d00e33, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: _auto_17
+    second: {fileID: 2100000, guid: 5fae81f7e5fefc74b98652703ec99ef6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: _auto_19
+    second: {fileID: 2100000, guid: 343bf6adbcb0dbd40ae0453355c4aecb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: _auto_21
+    second: {fileID: 2100000, guid: 7bfdb99cb78b9ec47ad9b607762c50f0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: _auto_24
+    second: {fileID: 2100000, guid: 9f9a26457d39f60438cad1598394d721, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: _auto_25
+    second: {fileID: 2100000, guid: f5e978114cc61d54d92e1cc960103430, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: _auto_26
+    second: {fileID: 2100000, guid: c179495c7a92de24da9f258e58b81e85, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: _auto_27
+    second: {fileID: 2100000, guid: 994f06f2eeb96c44cad7e855b19ede6b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: _auto_28
+    second: {fileID: 2100000, guid: bcdc8b63ea8eb5044917d99ed0b37449, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: _auto_29
+    second: {fileID: 2100000, guid: 53dfac9834590fc43b1e93011d7e25fc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: _auto_3
+    second: {fileID: 2100000, guid: adc6cfb87dda2ed40864dbc6a48c20ce, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: _auto_31
+    second: {fileID: 2100000, guid: 6be7bd9e8d8b1ea4599b17a25c0a59fa, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: _auto_4
+    second: {fileID: 2100000, guid: 720f3b6a0d55f3649811102a25de6614, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: _auto_6
+    second: {fileID: 2100000, guid: e57434c5021b86d47891ac635125e8db, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: _auto_8
+    second: {fileID: 2100000, guid: fa5790064d340774a9a1c3e819fc5978, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: _auto_9
+    second: {fileID: 2100000, guid: 0389041a0218f984d9a4c141f5947920, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: texture0
+    second: {fileID: 2800000, guid: f8220bd7564ccc340bba7f942ceb53cb, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: texture1
+    second: {fileID: 2800000, guid: 2887993836543c74397cc17a1035654a, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: texture10
+    second: {fileID: 2800000, guid: 3eeff60adaf2af34f9a67a5d2d0faa9d, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: texture11
+    second: {fileID: 2800000, guid: 003450235a877304280fadeba99e520a, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: texture12
+    second: {fileID: 2800000, guid: a3419851664284d4d830e867a5210c22, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: texture13
+    second: {fileID: 2800000, guid: aaac30220bb7c794e807b446a52cf5da, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: texture14
+    second: {fileID: 2800000, guid: c9a99eadbfdefe844bf2087d463b178b, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: texture16
+    second: {fileID: 2800000, guid: 6fc377133a9f83e45885921138441e90, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: texture2
+    second: {fileID: 2800000, guid: 5995e102132551f42ba1935e593aaeb0, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: texture3
+    second: {fileID: 2800000, guid: b8d6baef61f08b947b40ded4789d4b42, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: texture4
+    second: {fileID: 2800000, guid: d8c3e92de4c00ac49ab7e4ac83b833b0, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: texture5
+    second: {fileID: 2800000, guid: 131b2858d5fbf0b46b85a3d41469bfa4, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: texture6
+    second: {fileID: 2800000, guid: b258348fa494d7c4cb4a7f7efbebc874, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: texture7
+    second: {fileID: 2800000, guid: 5e7d24adc6ce96c4eb1202df19c04482, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: texture8
+    second: {fileID: 2800000, guid: 761eb4945d3709440b7192c182afa039, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: texture9
+    second: {fileID: 2800000, guid: 3d5a365f6f4c1e84da98c1f6f2d23f47, type: 3}
+  materials:
+    importMaterials: 1
+    materialName: 2
+    materialSearch: 0
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 0.0254
+    meshCompression: 0
+    addColliders: 1
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 0
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
