@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-100 -160 200 200">
+    <g id="LinesAndBases">
+        <line x1="3.7" x2="350" y1="-3.7" y2="-350" style="stroke:rgb(255, 255, 255);stroke-width:0.333px"/>
+        <line x1="-3.7" x2="-350" y1="-3.7" y2="-350" style="stroke:rgb(255, 255, 255);stroke-width:0.333px"/>
+        <rect width="4" height="6" x="-5.2" y="-3.7" style="stroke:rgb(255, 255, 255);stroke-width:0.3333px;fill:none"/>
+        <rect width="4" height="6" x="1.21" y="-3.7" style="stroke:rgb(255, 255, 255);stroke-width:0.3px;fill:none"/>
+        <rect width="3.58" height="6" x="-1.8" y="2.3" style="stroke:rgb(255, 255, 255);stroke-width:0.333px;fill:none"/>
+        <path d="M 0 0 L -0.708 -0.708 L -0.708 -1.5 L 0.709 -1.5 L 0.709 -0.709 Z" style="fill:rgb(255, 255, 255)"/>
+        <rect width="1.25" height="1.25" x="-60.197" y="-65.141" style="fill:rgb(255, 255, 255)" transform="matrix(0.707107, 0.707107, -0.707107, 0.707107, -67.135544, 23.220007)"/>
+        <rect width="1.25" height="1.25" x="-60.197" y="-65.141" style="fill:rgb(255, 255, 255)" transform="matrix(0.707107, 0.707107, -0.707107, 0.707107, 60.143677, 23.220007)"/>
+        <rect width="1.25" height="1.25" x="-60.197" y="-65.141" style="fill:rgb(255, 255, 255)" transform="matrix(0.707107, 0.707107, -0.707107, 0.707107, -3.495934, -39.535725)"/>
+        <rect width="2" height="0.5" x="-1" y="-60.5" style="fill:rgb(255, 255, 255)"/>
+    </g>
+</svg>
