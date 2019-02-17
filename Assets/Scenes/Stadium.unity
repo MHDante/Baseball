@@ -447,6 +447,7 @@ GameObject:
   - component: {fileID: 387182122}
   - component: {fileID: 387182124}
   - component: {fileID: 387182123}
+  - component: {fileID: 387182125}
   m_Layer: 0
   m_Name: Bat
   m_TagString: Untagged
@@ -462,13 +463,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 387182121}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 393485409}
   - {fileID: 572909453}
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_Father: {fileID: 1030837893}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &387182123
 Rigidbody:
@@ -500,6 +501,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 451864249}
   centerOfMass: {fileID: 572909453}
+--- !u!114 &387182125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 387182121}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1742909100, guid: ed7343f30e3843b3afda8f8b02669cea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Device: 1
+  m_PoseSource: 5
+  m_PoseProviderComponent: {fileID: 0}
+  m_TrackingType: 0
+  m_UpdateType: 0
+  m_UseRelativeTransform: 1
 --- !u!4 &393485409 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: f61ef2db666f1594b97a51f35bc53b34,
@@ -931,6 +950,7 @@ Transform:
   - {fileID: 534669905}
   - {fileID: 1960656685}
   - {fileID: 451864249}
+  - {fileID: 387182122}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

@@ -21,7 +21,17 @@ public class BallPool : MonoBehaviour
 
     public Ball GetBall()
     {
-        var b =  balls.Count > 0 ? balls[0] : MakeBall();
+        Ball b;
+        if (balls.Count > 0)
+        {
+            b = balls[0];
+            balls.RemoveAt(0);
+        }
+        else
+        {
+            b = MakeBall();
+        }
+
         b.gameObject.SetActive(true);
         return b;
     }
@@ -38,7 +48,6 @@ public class BallPool : MonoBehaviour
 
     private Ball MakeBall()
     {
-
         var ball = Instantiate(Prefab).AddComponent<Ball>();
         ball.pool = this;
         ball.transform.SetParent(transform);
@@ -61,5 +70,13 @@ public class Ball : MonoBehaviour
     private void Awake()
     {
         rigidBody = GetComponent<Rigidbody>();
+    }
+
+    private void Update()
+    {
+        if (!rigidBody.isKinematic && rigidBody.IsSleeping())
+        {
+            ReturnToPool();
+        }
     }
 }
