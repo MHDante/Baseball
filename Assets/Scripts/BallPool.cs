@@ -59,7 +59,8 @@ public class BallPool : MonoBehaviour
 public class Ball : MonoBehaviour
 {
     public BallPool pool;
-    public Rigidbody rigidBody;
+    public Rigidbody RigidBody;
+    public SphereCollider Collider;
     
 
     public void ReturnToPool()
@@ -69,12 +70,13 @@ public class Ball : MonoBehaviour
 
     private void Awake()
     {
-        rigidBody = GetComponent<Rigidbody>();
+        RigidBody = GetComponent<Rigidbody>();
+        Collider = GetComponent<SphereCollider>();
     }
 
     private void Update()
     {
-        if (!rigidBody.isKinematic && rigidBody.IsSleeping())
+        if (!RigidBody.isKinematic && RigidBody.IsSleeping())
         {
             ReturnToPool();
         }
