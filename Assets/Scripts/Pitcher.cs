@@ -11,8 +11,9 @@ public class Pitcher : MonoBehaviour
     public BallPool ballPool;
     public float flightTime = 1;
     public Transform ThrowOrigin;
-    public float terminalVelocity = 33;
-
+    public float curveAngle;
+    public float curveSpeedRPM = 1800;
+    private const float Rpm2Rads = 2 * Mathf.PI/60;
 
     private CharacterController _cc;
     private Animator _animator;
@@ -47,10 +48,13 @@ public class Pitcher : MonoBehaviour
             {
                 Vector3 dir;
                 dir = CalculateDragVelocity(ball.transform.position, ThrowTarget.transform.position);
-
+                Debug.Log(dir.magnitude);
                 Debug.DrawRay(ball.transform.position, dir, Color.red, 4);
                 ball.RigidBody.isKinematic = false;
                 ball.RigidBody.velocity = dir;
+                var vec = Quaternion.AngleAxis(curveAngle, Vector3.forward) * Vector3.up;
+                ball.RigidBody.angularVelocity = vec * (Rpm2Rads * curveSpeedRPM);
+                
                 ball.RigidBody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
                 ball.RigidBody.WakeUp();
                 ball = null;
@@ -79,8 +83,6 @@ public class Pitcher : MonoBehaviour
         {
             ball = ballPool.GetBall();
             Physics.IgnoreCollision(_cc, ball.Collider);
-            var idealDrag = Physics.gravity.magnitude / terminalVelocity;
-            ball.RigidBody.drag = idealDrag / ( idealDrag * Time.fixedDeltaTime + 1 );
             ball.RigidBody.collisionDetectionMode = CollisionDetectionMode.Discrete;
             ball.RigidBody.isKinematic = true;
             UpdateBall();
@@ -96,10 +98,9 @@ public class Pitcher : MonoBehaviour
     {
         var g = Physics.gravity.magnitude;
         var m = ball.RigidBody.mass;
-        var vt = terminalVelocity;
+        const float vt = Ball.terminalVelocity;
         var e = Math.E;
         var t = flightTime;
-        Debug.Log(t);
         var y = destination.y - origin.y;
         destination.y = origin.y;
         var xVec = (destination - origin);

@@ -55,30 +55,3 @@ public class BallPool : MonoBehaviour
         return ball;
     }
 }
-
-public class Ball : MonoBehaviour
-{
-    public BallPool pool;
-    public Rigidbody RigidBody;
-    public SphereCollider Collider;
-    
-
-    public void ReturnToPool()
-    {
-        pool.ReturnBall(this);
-    }
-
-    private void Awake()
-    {
-        RigidBody = GetComponent<Rigidbody>();
-        Collider = GetComponent<SphereCollider>();
-    }
-
-    private void Update()
-    {
-        if (!RigidBody.isKinematic && RigidBody.IsSleeping())
-        {
-            ReturnToPool();
-        }
-    }
-}
