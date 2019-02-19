@@ -2,14 +2,14 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    static bool IsRightHand;
 
-    public Pitcher pitcher;
-    public ParticleSystem pitcherParticles;
+    public Pitcher Pitcher;
+    public ParticleSystem PitcherParticles;
     public Transform SpeakPosition;
     public Transform PitchPosition;
     public Bat Bat;
@@ -21,10 +21,10 @@ public class GameManager : MonoBehaviour
     public GameObject Tutorial;
     public LayerMask StrikeZoneLayerMask;
     public ScoreBoard ScoreBoard;
-    public int score;
+    public int Points;
     public AudioSource Audience;
 
-    public Pitch[] pitches;
+    [FormerlySerializedAs("pitches")] public Pitch[] Pitches;
 
     private void Awake()
     {
@@ -34,24 +34,20 @@ public class GameManager : MonoBehaviour
     IEnumerator Start()
     {
         SetSignScreen(SignScreens.Title);
-
-        yield return null;
-        yield return WaitForTrigger;
+        
+        yield return WaitForTrigger();
 
         SetSignScreen(SignScreens.Text);
 
-        MatchTransformTo(pitcher.transform, SpeakPosition);
-        pitcherParticles.Play();
+        Pitcher.TeleportTo(SpeakPosition);
 
         TutorialText.text = "Welcome to TopTal Baseball! Press the trigger to Continue";
-        yield return null;
-        yield return WaitForTrigger;
-
+        
+        yield return WaitForTrigger();
         yield return CalibrateStrikeZone();
 
         TutorialText.text = "That green area above home plate is the strike zone. The pitcher will pitch the ball in that zone.";
-        yield return null;
-        yield return WaitForTrigger;
+        yield return WaitForTrigger();
 
         TutorialText.text = "Stand in either one of the boxes beside home plate, and put the tip of your bat inside the strike zone";
 
@@ -60,9 +56,7 @@ public class GameManager : MonoBehaviour
 
         yield return new WaitForSeconds(2);
 
-        pitcherParticles.Emit(30);
-        MatchTransformTo(pitcher.transform, PitchPosition);
-        pitcherParticles.Emit(30);
+        Pitcher.TeleportTo(PitchPosition);
 
         var go = Time.time + 3;
 
@@ -73,7 +67,7 @@ public class GameManager : MonoBehaviour
             yield return null;
         }
 
-        foreach (var pitch in pitches)
+        foreach (var pitch in Pitches)
         {
             yield return MakePitch(pitch);
         }
@@ -81,25 +75,22 @@ public class GameManager : MonoBehaviour
         var s = new Score()
         {
             DateTime = (int)DateTimeOffset.UtcNow.ToUnixTimeSeconds(),
-            Points = score
+            Points = Points
         };
         Score.Submit(s);
-        
+
         ScoreBoard.ShowScores(s);
         SetSignScreen(SignScreens.Scores);
 
         go = Time.time + 1.5f;
 
-        while(Time.time < go)
+        while (Time.time < go)
         {
             Sign.transform.position = Vector3.Lerp(SignHidePosition.position, pos, 1 - (go - Time.time) / 3);
             yield return null;
         }
         
-        yield return null;
-        yield return WaitForTrigger;
-
-
+        yield return WaitForTrigger();
         
         // Todo: Fade to black. We can use the SteamVR Loading Screen.
         SceneManager.LoadScene(0);
@@ -107,25 +98,23 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKey(Bat.ButtonKeyCode))
+            Time.timeScale = .25f;
+        else Time.timeScale = 1;
 
-        if (Input.GetKeyDown(KeyCode.JoystickButton14)) IsRightHand = true;
-        if (Input.GetKeyDown(KeyCode.JoystickButton15)) IsRightHand = false;
-
+        Time.fixedDeltaTime = 1f / (Application.targetFrameRate / Time.timeScale);
     }
 
-    readonly CustomYieldInstruction WaitForTrigger =
-        new WaitUntil(TriggerDown);
-
-    private static bool TriggerDown()
+    IEnumerator WaitForTrigger()
     {
-        return Input.GetKeyDown(IsRightHand ? KeyCode.JoystickButton14 : KeyCode.JoystickButton15);
+        do yield return null;
+        while (!Input.GetKeyDown(Bat.TriggerKeyCode));
     }
-
 
     private IEnumerator MakePitch(Pitch pitch)
     {
-        pitcher.MakePitch(pitch);
-        var ball = pitcher.ball;
+        Pitcher.MakePitch(pitch);
+        var ball = Pitcher.CurrentBall;
         yield return new WaitUntil(() => ball.Launched);
         // Todo: Show speed
         yield return new WaitUntil(() => ball.HitFloor || ball.HitBat);
@@ -135,7 +124,7 @@ public class GameManager : MonoBehaviour
             hitScore += 500;
             if (!ball.HitFloor)
             {
-                var q = ball.hitVelocity;
+                var q = ball.HitVelocity;
                 if (q.z > 0 && (Mathf.Abs(q.x) < q.z))
                 {
                     if (q.magnitude > 30) Audience.Play();
@@ -143,11 +132,10 @@ public class GameManager : MonoBehaviour
 
                 yield return new WaitUntil(() => ball.HitFloor);
                 Audience.Stop();
-                var p = ball.landPosition;
+                var p = ball.LandPosition;
                 // Not Foul.
                 if (p.z > 0 && (Mathf.Abs(p.x) < p.z))
                 {
-                    if(ball.hitVelocity.magnitude > 30) Audience.Play();
                     hitScore += 500;
                     hitScore += (int)(p.magnitude * 100);
                 }
@@ -155,8 +143,8 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        Debug.Log(hitScore);
-        score += hitScore;
+
+        Points += hitScore;
     }
 
     private IEnumerator CheckIfInZone()
@@ -164,7 +152,7 @@ public class GameManager : MonoBehaviour
         var arr = new Collider[10];
         while (true)
         {
-            bool inZone = Physics.OverlapSphereNonAlloc(Bat.centerOfMass.position, .1f, arr, StrikeZoneLayerMask,
+            bool inZone = Physics.OverlapSphereNonAlloc(Bat.CenterOfMass.position, .1f, arr, StrikeZoneLayerMask,
                               QueryTriggerInteraction.Collide) > 0;
 
             if (!inZone)
@@ -189,25 +177,20 @@ public class GameManager : MonoBehaviour
         while (true)
         {
             TutorialText.text = "Let's start by placing the controller on your shoulder and press the trigger";
-            yield return null;
-            yield return WaitForTrigger;
+            yield return WaitForTrigger();
             var top = Bat.transform.position.y;
 
 
             TutorialText.text = "Put Controller at your waist then press the trigger";
-            yield return null;
-            yield return WaitForTrigger;
+            yield return WaitForTrigger();
             var middle = Bat.transform.position.y;
 
             TutorialText.text = "Now Place the Controller at your knee, and press the trigger";
-            yield return null;
-            yield return WaitForTrigger;
+            yield return WaitForTrigger();
             var bottom = Bat.transform.position.y;
             if (SetStrikeZone(top, middle, bottom)) break;
         }
     }
-
-
 
     public bool SetStrikeZone(float top, float middle, float bottom)
     {
@@ -260,9 +243,4 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void MatchTransformTo(Transform source, Transform target)
-    {
-        source.transform.position = target.transform.position;
-        source.transform.rotation = target.transform.rotation;
-    }
 }

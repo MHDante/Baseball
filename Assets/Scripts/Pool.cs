@@ -45,10 +45,9 @@ public class Pool : MonoBehaviour
 
     private GameObject Make()
     {
-        var ball = Instantiate(Prefab);
+        var ball = Instantiate(Prefab, transform, true);
         var comp = ball.GetComponent<Poolable>() ?? ball.AddComponent<Poolable>();
-        comp.pool = this;
-        ball.transform.SetParent(transform);
+        comp.Pool = this;
         ball.gameObject.SetActive(false);
         return ball;
     }
@@ -56,10 +55,10 @@ public class Pool : MonoBehaviour
 
 public class Poolable : MonoBehaviour
 {
-    public Pool pool;
+    public Pool Pool;
     
     public void ReturnToPool()
     {
-        pool.Return(this.gameObject);
+        Pool.Return(gameObject);
     }
 }

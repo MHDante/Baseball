@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,8 +8,7 @@ public class ScoreBoard : MonoBehaviour
     public Text YourScore;
     public Text Names;
     public Text Scores;
-
-
+    
     public void ShowScores(Score yours)
     {
         var scoreList = Score.GetScores();

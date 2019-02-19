@@ -1,24 +1,25 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Pitcher : MonoBehaviour
 {
-    private const float Rpm2Rads = 2 * Mathf.PI/60;
+    private const float RPM_2_RADS = 2 * Mathf.PI/60;
 
     public Transform HandTransform;
     public Transform ThrowTarget;
-    public Pool ballPool;
-    public Transform ThrowOrigin;
-    public Ball ball = null;
-    public bool pitching = false;
+    public Pool BallPool;
+    [NonSerialized] public Ball CurrentBall;
 
     private CharacterController _cc;
+    private ParticleSystem _particles;
     private Animator _animator;
-    private Pitch CurrentPitch;
+    private Pitch _currentPitch;
 
     void Start()
     {
         _cc = GetComponent<CharacterController>();
+        _particles = GetComponentInChildren<ParticleSystem>();
         _animator = GetComponent<Animator>();
         _cc.SimpleMove(Vector3.forward * .01f / Time.deltaTime);
     }
@@ -31,39 +32,42 @@ public class Pitcher : MonoBehaviour
 
     public void MakePitch(Pitch p)
     {
-        if (!ball)
+        if (!CurrentBall)
         {
-            pitching = true;
             SetState(PitcherStates.Pitch);
-            ball = ballPool.Get().GetComponent<Ball>();
-            CurrentPitch = p;
-            Physics.IgnoreCollision(_cc, ball.Collider);
-            ball.RigidBody.collisionDetectionMode = CollisionDetectionMode.Discrete;
-            ball.RigidBody.isKinematic = true;
+            CurrentBall = BallPool.Get().GetComponent<Ball>();
+            _currentPitch = p;
+            Physics.IgnoreCollision(_cc, CurrentBall.Collider);
+            CurrentBall.RigidBody.collisionDetectionMode = CollisionDetectionMode.Discrete;
+            CurrentBall.RigidBody.isKinematic = true;
             UpdateBall();
         }
     }
+    
+    // ReSharper disable once UnusedMember.Local - Called By Animation Event
+    void GrabBall()
+    {
+        // Animation for pitch ended. - Unused.
+    }
 
-    // Called By Animation Event
+    // ReSharper disable once UnusedMember.Local - Called By Animation Event
     void OnThrow()
     {
-        if (ball != null)
+        if (CurrentBall != null)
         {
             try
             {
                 Vector3 dir;
-                dir = CalculateDragVelocity(ball.transform.position, ThrowTarget.transform.position);
-                Debug.Log(dir.magnitude);
-                Debug.DrawRay(ball.transform.position, dir, Color.red, 4);
-                ball.RigidBody.isKinematic = false;
-                ball.RigidBody.velocity = dir;
-                var vec = Quaternion.AngleAxis(CurrentPitch.curveAngle, Vector3.forward) * Vector3.up;
-                ball.RigidBody.angularVelocity = vec * (Rpm2Rads * CurrentPitch.MaxCurveSpeedRPM);
+                dir = CalculateDragVelocity(CurrentBall.transform.position, ThrowTarget.transform.position);
+                CurrentBall.RigidBody.isKinematic = false;
+                CurrentBall.RigidBody.velocity = dir;
+                var vec = Quaternion.AngleAxis(_currentPitch.CurveAngle, Vector3.forward) * Vector3.up;
+                CurrentBall.RigidBody.angularVelocity = vec * (RPM_2_RADS * _currentPitch.MaxCurveSpeedRpm);
                 
-                ball.RigidBody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
-                ball.RigidBody.WakeUp();
-                ball.OnLaunch();
-                ball = null;
+                CurrentBall.RigidBody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+                CurrentBall.RigidBody.WakeUp();
+                CurrentBall.OnLaunch();
+                CurrentBall = null;
             }
             catch (ArithmeticException e)
             {
@@ -74,20 +78,14 @@ public class Pitcher : MonoBehaviour
 
     void UpdateBall()
     {
-        if (ball != null)
+        if (CurrentBall != null)
         {
-            var bt = ball.transform;
+            var bt = CurrentBall.transform;
             bt.position = HandTransform.position;
             bt.rotation = HandTransform.rotation;
         }
     }
    
-    // Called By Animation Event
-    void GrabBall()
-    {
-        pitching = false;
-    }
-
     void SetState(PitcherStates state)
     {
         _animator.SetInteger(AnimVar_State, (int)state);
@@ -97,10 +95,9 @@ public class Pitcher : MonoBehaviour
     private Vector3 CalculateDragVelocity(Vector3 origin, Vector3 destination)
     {
         var g = Physics.gravity.magnitude;
-        var m = ball.RigidBody.mass;
-        const float vt = Ball.terminalVelocity;
+        const float vt = Ball.TERMINAL_VELOCITY;
         var e = Math.E;
-        var t = CurrentPitch.flightTime;
+        var t = _currentPitch.FlightTime;
         var y = destination.y - origin.y;
         destination.y = origin.y;
         var xVec = (destination - origin);
@@ -116,6 +113,8 @@ public class Pitcher : MonoBehaviour
         return dir;
     }
 
+    
+    // ReSharper disable once UnusedMember.Local - Kept around for reference.
     private Vector3 CalculateDraglessTrajectoryVelocity(Vector3 origin, Vector3 destination, float throwSpeed, bool highball = false)
     {
         var g = Physics.gravity.magnitude;
@@ -135,6 +134,15 @@ public class Pitcher : MonoBehaviour
         var dir = rot * xVector.normalized * v;
 
         return dir;
+    }
+
+    
+    public void TeleportTo(Transform target)
+    {
+        _particles.Emit(30);
+        transform.position = target.transform.position;
+        transform.rotation = target.transform.rotation;
+        _particles.Emit(30);
     }
 
     // Todo: Keep In Sync with Animator.

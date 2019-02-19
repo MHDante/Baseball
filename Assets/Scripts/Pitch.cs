@@ -1,12 +1,13 @@
 ﻿using System;
+using UnityEngine.Serialization;
 
 [Serializable]
 public class Pitch
 {
-    public PitchTypes name;
-    public float curveAngle;
-    public float MaxCurveSpeedRPM;
-    public float flightTime =.5f;
+    public PitchTypes Name;
+    public float CurveAngle;
+    public float MaxCurveSpeedRpm;
+    public float FlightTime =.5f;
 }
 
 public enum PitchTypes
