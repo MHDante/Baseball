@@ -4,7 +4,15 @@ public class Ball : MonoBehaviour
 {
     public Rigidbody RigidBody;
     public SphereCollider Collider;
-    public Vector3 magnusForce;
+    public AudioSource AudioSource;
+    
+    public AudioClip GrounderClip;
+    public AudioClip WhackClip;
+    public AudioClip TipClip;
+    public AudioClip TapClip;
+
+    private Vector3 magnusForce;
+
 
     public bool Launched;
     public bool HitBat;
@@ -14,6 +22,7 @@ public class Ball : MonoBehaviour
     public Vector3 hitVelocity;
     public Vector3 landPosition;
     
+
     // From http://hyperphysics.phy-astr.gsu.edu/hbase/airfri2.html#c3
     public const float terminalVelocity = 33;
     // Assuming linear drag
@@ -66,10 +75,18 @@ public class Ball : MonoBehaviour
 
     private void OnCollisionStay(Collision other)
     {
-        if (!HitFloor && other.collider.CompareTag("Floor") && Mathf.Abs(RigidBody.velocity.y) <=0.1f)
+        if (!HitFloor && other.collider.CompareTag("Floor") && Mathf.Abs(RigidBody.velocity.y) <=.5f)
         {
             HitFloor = true;
             landPosition = RigidBody.position;
+        }
+    }
+    
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.CompareTag("Floor"))
+        {
+            AudioSource.PlayOneShot(Time.frameCount %2 == 1 ? TapClip : TipClip,.1f);
         }
     }
 
@@ -81,7 +98,13 @@ public class Ball : MonoBehaviour
             HitBat = true;
             var bat = other.rigidbody.GetComponent<Bat>();
             hitVelocity = RigidBody.velocity;
-            bat.Whack();
+
+            if (hitVelocity.y < 0)
+            {
+                AudioSource.PlayOneShot(GrounderClip,.5f);
+                return;
+            }
+            AudioSource.PlayOneShot(WhackClip);
             
         }
     }

@@ -4,6 +4,8 @@ public class Bat : MonoBehaviour
 {
     public Transform target;
     public Transform centerOfMass;
+
+
     private new Rigidbody rigidbody;
     private Vector3 LastPos;
     private Quaternion LastRot;
@@ -22,19 +24,13 @@ public class Bat : MonoBehaviour
     {
         tracker.Update(transform.position, transform.rotation, Time.fixedDeltaTime);
         rigidbody.angularVelocity = tracker.AngularVelocity;
-        rigidbody.velocity = tracker.AngularVelocity;
+        rigidbody.velocity = tracker.Velocity;
 
     }
 
     private void Update()
     {
-
-
         Time.fixedDeltaTime = 1f / (Application.targetFrameRate / Time.timeScale);
     }
-
-    public void Whack()
-    {
-        throw new System.NotImplementedException();
-    }
+    
 }

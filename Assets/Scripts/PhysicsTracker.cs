@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 /// <summary>
 /// Object that can estimate a smoothed velocity and acceleration (linear and angular)

@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -22,38 +20,35 @@ public class GameManager : MonoBehaviour
     public Text TutorialText;
     public GameObject Tutorial;
     public LayerMask StrikeZoneLayerMask;
+    public ScoreBoard ScoreBoard;
+    public int score;
+    public AudioSource Audience;
 
     public Pitch[] pitches;
 
-
-    readonly CustomYieldInstruction WaitForTrigger = 
-        new WaitUntil(TriggerDown);
-
-    public int score;
-
-
-    private static bool TriggerDown()
+    private void Awake()
     {
-        return Input.GetKeyDown(IsRightHand?  KeyCode.JoystickButton14 : KeyCode.JoystickButton15 );
+        Score.GetScores();
     }
-    
+
     IEnumerator Start()
     {
-        Debug.Log("Yo!");
+        SetSignScreen(SignScreens.Title);
+
         yield return null;
         yield return WaitForTrigger;
-        
+
         SetSignScreen(SignScreens.Text);
 
         MatchTransformTo(pitcher.transform, SpeakPosition);
         pitcherParticles.Play();
-        
+
         TutorialText.text = "Welcome to TopTal Baseball! Press the trigger to Continue";
         yield return null;
         yield return WaitForTrigger;
 
         yield return CalibrateStrikeZone();
-        
+
         TutorialText.text = "That green area above home plate is the strike zone. The pitcher will pitch the ball in that zone.";
         yield return null;
         yield return WaitForTrigger;
@@ -63,18 +58,18 @@ public class GameManager : MonoBehaviour
         yield return CheckIfInZone();
         TutorialText.text = "Aim for the target in the field. Good Luck!";
 
-        yield return new  WaitForSeconds(2);
+        yield return new WaitForSeconds(2);
 
         pitcherParticles.Emit(30);
         MatchTransformTo(pitcher.transform, PitchPosition);
         pitcherParticles.Emit(30);
-        
+
         var go = Time.time + 3;
 
         var pos = Sign.transform.position;
         while (Time.time < go)
         {
-            Sign.transform.position = Vector3.Lerp(pos, SignHidePosition.position, 1 - (go-Time.time)/3);
+            Sign.transform.position = Vector3.Lerp(pos, SignHidePosition.position, 1 - (go - Time.time) / 3);
             yield return null;
         }
 
@@ -83,22 +78,49 @@ public class GameManager : MonoBehaviour
             yield return MakePitch(pitch);
         }
 
-        TutorialText.text = $"Total Score: \n {score}";
-        go = Time.time + 1.5f;
-        for (int i = 0; i < 1000; i++)
+        var s = new Score()
         {
-            Sign.transform.position = Vector3.Lerp(SignHidePosition.position,pos,  1 - (go-Time.time)/3);
+            DateTime = (int)DateTimeOffset.UtcNow.ToUnixTimeSeconds(),
+            Points = score
+        };
+        Score.Submit(s);
+        
+        ScoreBoard.ShowScores(s);
+        SetSignScreen(SignScreens.Scores);
+
+        go = Time.time + 1.5f;
+
+        while(Time.time < go)
+        {
+            Sign.transform.position = Vector3.Lerp(SignHidePosition.position, pos, 1 - (go - Time.time) / 3);
             yield return null;
         }
-
+        
         yield return null;
         yield return WaitForTrigger;
 
-        yield return new WaitForSeconds(3);
-        SceneManager.LoadScene(0);
 
+        
+        // Todo: Fade to black. We can use the SteamVR Loading Screen.
+        SceneManager.LoadScene(0);
+    }
+
+    private void Update()
+    {
+
+        if (Input.GetKeyDown(KeyCode.JoystickButton14)) IsRightHand = true;
+        if (Input.GetKeyDown(KeyCode.JoystickButton15)) IsRightHand = false;
 
     }
+
+    readonly CustomYieldInstruction WaitForTrigger =
+        new WaitUntil(TriggerDown);
+
+    private static bool TriggerDown()
+    {
+        return Input.GetKeyDown(IsRightHand ? KeyCode.JoystickButton14 : KeyCode.JoystickButton15);
+    }
+
 
     private IEnumerator MakePitch(Pitch pitch)
     {
@@ -113,13 +135,21 @@ public class GameManager : MonoBehaviour
             hitScore += 500;
             if (!ball.HitFloor)
             {
+                var q = ball.hitVelocity;
+                if (q.z > 0 && (Mathf.Abs(q.x) < q.z))
+                {
+                    if (q.magnitude > 30) Audience.Play();
+                }
+
                 yield return new WaitUntil(() => ball.HitFloor);
+                Audience.Stop();
                 var p = ball.landPosition;
                 // Not Foul.
                 if (p.z > 0 && (Mathf.Abs(p.x) < p.z))
                 {
+                    if(ball.hitVelocity.magnitude > 30) Audience.Play();
                     hitScore += 500;
-                    hitScore += (int) (p.magnitude * 100);
+                    hitScore += (int)(p.magnitude * 100);
                 }
 
             }
@@ -177,13 +207,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        
-        if (Input.GetKeyDown(KeyCode.JoystickButton14)) IsRightHand = true;
-        if (Input.GetKeyDown(KeyCode.JoystickButton15)) IsRightHand = false;
-            
-    }
 
 
     public bool SetStrikeZone(float top, float middle, float bottom)
@@ -199,7 +222,7 @@ public class GameManager : MonoBehaviour
         StrikeZone.transform.localScale = s;
 
         var p = StrikeZone.transform.position;
-        p.y = (torso + bottom)/2;
+        p.y = (torso + bottom) / 2;
         StrikeZone.transform.position = p;
 
         StrikeZone.SetActive(true);
@@ -211,14 +234,15 @@ public class GameManager : MonoBehaviour
     {
         Title,
         Text,
-        Menu
+        Scores
     }
-    
+
     public void SetSignScreen(SignScreens screen)
     {
-        
+
         Title.SetActive(false);
         Tutorial.SetActive(false);
+        ScoreBoard.gameObject.SetActive(false);
 
         switch (screen)
         {
@@ -228,8 +252,9 @@ public class GameManager : MonoBehaviour
             case SignScreens.Text:
                 Tutorial.SetActive(true);
                 break;
-            case SignScreens.Menu:
-                throw new NotImplementedException();
+            case SignScreens.Scores:
+                ScoreBoard.gameObject.SetActive(true);
+                break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(screen), screen, null);
         }
