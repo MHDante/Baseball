@@ -2,18 +2,14 @@
 
 public class Bat : MonoBehaviour
 {
-    public Transform target;
     public Transform centerOfMass;
 
 
     private new Rigidbody rigidbody;
     private Vector3 LastPos;
     private Quaternion LastRot;
-    private PhysicsTracker tracker;
     void Start()
     {
-        tracker = new PhysicsTracker();
-        tracker.Reset(transform.position, transform.rotation, Vector3.zero, Vector3.zero);
         rigidbody = GetComponent<Rigidbody>();
         Application.targetFrameRate = 90;
         rigidbody.maxAngularVelocity = float.PositiveInfinity;
@@ -22,9 +18,26 @@ public class Bat : MonoBehaviour
 
     private void FixedUpdate()
     {
-        tracker.Update(transform.position, transform.rotation, Time.fixedDeltaTime);
-        rigidbody.angularVelocity = tracker.AngularVelocity;
-        rigidbody.velocity = tracker.Velocity;
+        var speed = 1 / Time.fixedDeltaTime;
+
+        var pos =  transform.position;
+        var rot = transform.rotation;
+
+        rigidbody.position = LastPos;
+        rigidbody.rotation = LastRot;
+
+        var posDiff = (pos - LastPos);
+        rigidbody.velocity =  posDiff * speed;
+        
+        var rotDiff = rot * Quaternion.Inverse(LastRot);
+        rotDiff.ToAngleAxis(out var angle, out var axis);
+        if (angle < -180) angle += 360;
+        if (float.IsInfinity(axis.x)) return;
+        rigidbody.angularVelocity = (Mathf.Deg2Rad * angle * speed) * axis.normalized;
+
+        LastPos = pos;
+        LastRot = rot;
+
 
     }
 
