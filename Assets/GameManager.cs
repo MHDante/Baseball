@@ -72,7 +72,7 @@ public class GameManager : MonoBehaviour
         var go = Time.time + 3;
 
         var pos = Sign.transform.position;
-        for (int i = 0; i < 1000; i++)
+        while (Time.time < go)
         {
             Sign.transform.position = Vector3.Lerp(pos, SignHidePosition.position, 1 - (go-Time.time)/3);
             yield return null;
@@ -115,12 +115,13 @@ public class GameManager : MonoBehaviour
             {
                 yield return new WaitUntil(() => ball.HitFloor);
                 var p = ball.landPosition;
+                // Not Foul.
                 if (p.z > 0 && (Mathf.Abs(p.x) < p.z))
                 {
-                    hitScore += 500; // Not Foul.
+                    hitScore += 500;
+                    hitScore += (int) (p.magnitude * 100);
                 }
 
-                hitScore += (int) (p.magnitude * 100);
             }
         }
 
