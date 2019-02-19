@@ -1,41 +1,46 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Pitcher : MonoBehaviour
 {
+    private const float Rpm2Rads = 2 * Mathf.PI/60;
 
     public Transform HandTransform;
     public Transform ThrowTarget;
-    public BallPool ballPool;
-    public float flightTime = 1;
+    public Pool ballPool;
     public Transform ThrowOrigin;
-    public float curveAngle;
-    public float curveSpeedRPM = 1800;
-    private const float Rpm2Rads = 2 * Mathf.PI/60;
+    public Ball ball = null;
+    public bool pitching = false;
 
     private CharacterController _cc;
     private Animator _animator;
-    private Ball ball = null;
-
+    private Pitch CurrentPitch;
 
     void Start()
     {
         _cc = GetComponent<CharacterController>();
         _animator = GetComponent<Animator>();
         _cc.SimpleMove(Vector3.forward * .01f / Time.deltaTime);
-        GrabBall();
     }
 
     void Update()
     {
-
         UpdateBall();
+    }
 
-        if (Input.GetKeyDown(KeyCode.JoystickButton14) || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.JoystickButton15))
+
+    public void MakePitch(Pitch p)
+    {
+        if (!ball)
         {
-            if (ball) SetState(PitcherStates.Pitch);
+            pitching = true;
+            SetState(PitcherStates.Pitch);
+            ball = ballPool.Get().GetComponent<Ball>();
+            CurrentPitch = p;
+            Physics.IgnoreCollision(_cc, ball.Collider);
+            ball.RigidBody.collisionDetectionMode = CollisionDetectionMode.Discrete;
+            ball.RigidBody.isKinematic = true;
+            UpdateBall();
         }
     }
 
@@ -52,11 +57,12 @@ public class Pitcher : MonoBehaviour
                 Debug.DrawRay(ball.transform.position, dir, Color.red, 4);
                 ball.RigidBody.isKinematic = false;
                 ball.RigidBody.velocity = dir;
-                var vec = Quaternion.AngleAxis(curveAngle, Vector3.forward) * Vector3.up;
-                ball.RigidBody.angularVelocity = vec * (Rpm2Rads * curveSpeedRPM);
+                var vec = Quaternion.AngleAxis(CurrentPitch.curveAngle, Vector3.forward) * Vector3.up;
+                ball.RigidBody.angularVelocity = vec * (Rpm2Rads * CurrentPitch.MaxCurveSpeedRPM);
                 
                 ball.RigidBody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
                 ball.RigidBody.WakeUp();
+                ball.OnLaunch();
                 ball = null;
             }
             catch (ArithmeticException e)
@@ -75,19 +81,13 @@ public class Pitcher : MonoBehaviour
             bt.rotation = HandTransform.rotation;
         }
     }
-
+   
     // Called By Animation Event
     void GrabBall()
     {
-        if (!ball)
-        {
-            ball = ballPool.GetBall();
-            Physics.IgnoreCollision(_cc, ball.Collider);
-            ball.RigidBody.collisionDetectionMode = CollisionDetectionMode.Discrete;
-            ball.RigidBody.isKinematic = true;
-            UpdateBall();
-        }
+        pitching = false;
     }
+
     void SetState(PitcherStates state)
     {
         _animator.SetInteger(AnimVar_State, (int)state);
@@ -100,7 +100,7 @@ public class Pitcher : MonoBehaviour
         var m = ball.RigidBody.mass;
         const float vt = Ball.terminalVelocity;
         var e = Math.E;
-        var t = flightTime;
+        var t = CurrentPitch.flightTime;
         var y = destination.y - origin.y;
         destination.y = origin.y;
         var xVec = (destination - origin);

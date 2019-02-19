@@ -2,22 +2,23 @@
 
 public class Ball : MonoBehaviour
 {
-    public BallPool pool;
     public Rigidbody RigidBody;
     public SphereCollider Collider;
     public Vector3 magnusForce;
+
+    public bool Launched;
+    public bool HitBat;
+    public bool HitFloor;
+
+    public Vector3 launchVelocity;
+    public Vector3 hitVelocity;
+    public Vector3 landPosition;
     
     // From http://hyperphysics.phy-astr.gsu.edu/hbase/airfri2.html#c3
     public const float terminalVelocity = 33;
     // Assuming linear drag
     const float Drag = 9.8f / terminalVelocity;
-
     
-    public void ReturnToPool()
-    {
-        pool.ReturnBall(this);
-    }
-
     private void Awake()
     {
         RigidBody = GetComponent<Rigidbody>();
@@ -29,7 +30,11 @@ public class Ball : MonoBehaviour
     {
         if (!RigidBody.isKinematic && RigidBody.IsSleeping())
         {
-            ReturnToPool();
+            HitFloor = false;
+            HitBat = false;
+            Launched = false;
+
+            GetComponent<Poolable>().ReturnToPool();
             return;
         }
         
@@ -48,5 +53,36 @@ public class Ball : MonoBehaviour
         var B = 0.00041f;
         magnusForce =  B * Vector3.Cross(RigidBody.angularVelocity, RigidBody.velocity);
         RigidBody.AddForce(magnusForce, ForceMode.Force);
+    }
+
+
+    public void OnLaunch()
+    {
+        Launched = true;
+        launchVelocity = RigidBody.velocity;
+        HitBat = false;
+
+    }
+
+    private void OnCollisionStay(Collision other)
+    {
+        if (!HitFloor && other.collider.CompareTag("Floor") && Mathf.Abs(RigidBody.velocity.y) <=0.1f)
+        {
+            HitFloor = true;
+            landPosition = RigidBody.position;
+        }
+    }
+
+    private void OnCollisionExit(Collision other)
+    {
+
+        if (other.collider.CompareTag("Bat"))
+        {
+            HitBat = true;
+            var bat = other.rigidbody.GetComponent<Bat>();
+            hitVelocity = RigidBody.velocity;
+            bat.Whack();
+            
+        }
     }
 }

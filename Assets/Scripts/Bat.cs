@@ -32,4 +32,9 @@ public class Bat : MonoBehaviour
 
         Time.fixedDeltaTime = 1f / (Application.targetFrameRate / Time.timeScale);
     }
+
+    public void Whack()
+    {
+        throw new System.NotImplementedException();
+    }
 }
