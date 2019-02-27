@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
 
         Pitcher.TeleportTo(SpeakPosition);
 
-        TutorialText.text = "Welcome to TopTal Baseball! Press the trigger to Continue";
+        TutorialText.text = "Welcome to Fastball Baseball! Press the trigger to Continue";
         
         yield return WaitForTrigger();
         yield return CalibrateStrikeZone();
